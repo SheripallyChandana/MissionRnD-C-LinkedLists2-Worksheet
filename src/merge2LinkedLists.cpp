@@ -19,5 +19,51 @@ struct node {
 };
 
 struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
-	return NULL;
-}
+
+	struct node* head3 = NULL;
+	struct node* tail = NULL;
+	struct node* smallest = NULL;
+
+	while (head1 && head2){
+		if (head1->num <= head2->num){
+			smallest = head1;
+			head1 = head1->next;
+		}
+		else{
+			smallest = head2;
+			head2 = head2->next;
+		}
+		if (head3 == NULL){
+			head3 = smallest;
+			tail = smallest;
+		}
+		else{
+			tail->next = smallest;
+			tail = smallest;
+		}
+	}
+	while (head1){
+		if (head3 == NULL){
+			head3 = head1;
+			tail = head1;
+		}
+		else{
+			tail->next = head1;
+			tail = head1;
+		}
+		head1 = head1->next;
+	}
+	while (head2){
+		if (head3 == NULL){
+			head3 = head2;
+			tail = head2;
+		}
+		else{
+			tail->next = head2;
+			tail = head2;
+		}
+		head2 = head2->next;
+	}
+
+	return head3;
+}	
